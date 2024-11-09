@@ -1,5 +1,5 @@
-/**
- * Hpspital Controller
+/** 
+ * Hospital Controller
  * 
  * Created by: Ashna Paul and Aarya Savaliya
  * Date: October 23, 2024
@@ -135,6 +135,56 @@ const updatePatientCriticalCondition = async (patientId) => {
   }
 };
 
+const updatePatient = async (req, res) => {
+  try {
+    const patient = await Patient.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!patient) return res.status(404).json({ message: 'Patient not found' });
+    res.json(patient);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// Delete patient by ID
+const deletePatient = async (req, res) => {
+  try {
+    const patient = await Patient.findByIdAndDelete(req.params.id);
+    if (!patient) return res.status(404).json({ message: 'Patient not found' });
+    res.json({ message: 'Patient deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Update test details by test ID
+const updateTest = async (req, res) => {
+  try {
+    const test = await Test.findByIdAndUpdate(req.params.testId, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!test) return res.status(404).json({ message: 'Test not found' });
+    res.json(test);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// Delete test by test ID
+const deleteTest = async (req, res) => {
+  try {
+    const test = await Test.findByIdAndDelete(req.params.testId);
+    if (!test) return res.status(404).json({ message: 'Test not found' });
+    res.json({ message: 'Test deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
 export { 
   addPatient, 
   getAllPatients, 
@@ -142,5 +192,9 @@ export {
   addTestForPatient, 
   getTestsForPatient, 
   getPatientHistory, 
-  getCriticalPatients 
+  getCriticalPatients,
+  updatePatient,
+  deletePatient,
+  updateTest,
+  deleteTest,
 };

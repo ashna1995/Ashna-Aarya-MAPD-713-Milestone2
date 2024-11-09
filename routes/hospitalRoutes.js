@@ -18,7 +18,11 @@ import {
   addTestForPatient, 
   getTestsForPatient, 
   getPatientHistory, 
-  getCriticalPatients 
+  getCriticalPatients,
+  updatePatient,
+  deletePatient,
+  updateTest,
+  deleteTest
 } from '../controller/hospitalController.js';
 
 const router = express.Router();
@@ -105,6 +109,52 @@ router.get('/patients/critical', getCriticalPatients);
  */
 router.get('/patients/:id', getPatientById);
 
+/**
+ * @swagger
+ * /api/patients/{id}:
+ *   put:
+ *     summary: Update patient details
+ *     tags: [Patients]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Patient'
+ *     responses:
+ *       200:
+ *         description: Patient details updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Patient'
+ */
+router.put('/patients/:id', updatePatient);
+
+/**
+ * @swagger
+ * /api/patients/{id}:
+ *   delete:
+ *     summary: Delete a patient
+ *     tags: [Patients]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Patient deleted successfully
+ */
+router.delete('/patients/:id', deletePatient);
+
 // Test-related routes
 
 /**
@@ -158,6 +208,62 @@ router.post('/patients/:id/tests', addTestForPatient);
  *                 $ref: '#/components/schemas/Test'
  */
 router.get('/patients/:id/tests', getTestsForPatient);
+
+/**
+ * @swagger
+ * /api/patients/{id}/tests/{testId}:
+ *   put:
+ *     summary: Update a test for a patient
+ *     tags: [Tests]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: path
+ *         name: testId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Test'
+ *     responses:
+ *       200:
+ *         description: Test updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Test'
+ */
+router.put('/patients/:id/tests/:testId', updateTest);
+
+/**
+ * @swagger
+ * /api/patients/{id}/tests/{testId}:
+ *   delete:
+ *     summary: Delete a test for a patient
+ *     tags: [Tests]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: path
+ *         name: testId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Test deleted successfully
+ */
+router.delete('/patients/:id/tests/:testId', deleteTest);
 
 /**
  * @swagger

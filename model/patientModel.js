@@ -34,6 +34,10 @@ const patientSchema = new mongoose.Schema({
   
   // Boolean flag to indicate if the patient is in a critical condition
   criticalCondition: { type: Boolean, default: false }
+},
+{
+  // Include timestamps for creation and last update
+  timestamps: true
 });
 
 // Export the Patient model based on the schema

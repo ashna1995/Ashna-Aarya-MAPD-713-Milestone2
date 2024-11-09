@@ -31,6 +31,10 @@ const testSchema = new mongoose.Schema({
   // The result or value of the test
   // Stored as a string to accommodate different formats (e.g., "120/80" for blood pressure)
   value: { type: String, required: true }
+},
+{
+  // Include timestamps for creation and last update
+  timestamps: true
 });
 
 // Export the Test model based on the schema
