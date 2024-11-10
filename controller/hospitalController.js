@@ -66,7 +66,9 @@ const addTestForPatient = async (req, res) => {
 // Retrieve all tests for a specific patient
 const getTestsForPatient = async (req, res) => {
   try {
-    const tests = await Test.find({ patientId: req.params.id }).sort({ date: -1 });
+    const tests = await Test.find({ patientId: req.params.id })
+  .select('type value date createdAt updatedAt')
+  .sort({ date: -1 });
     res.json(tests);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -185,6 +187,18 @@ const deleteTest = async (req, res) => {
 };
 
 
+// Fetch a specific test by ID
+const getTestById = async (req, res) => {
+  try {
+    const test = await Test.findById(req.params.testId);
+    if (!test) return res.status(404).json({ message: 'Test not found' });
+    res.json(test);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
 export { 
   addPatient, 
   getAllPatients, 
@@ -197,4 +211,5 @@ export {
   deletePatient,
   updateTest,
   deleteTest,
+  getTestById,
 };

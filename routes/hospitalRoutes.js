@@ -22,7 +22,8 @@ import {
   updatePatient,
   deletePatient,
   updateTest,
-  deleteTest
+  deleteTest,
+  getTestById
 } from '../controller/hospitalController.js';
 
 const router = express.Router();
@@ -293,5 +294,35 @@ router.delete('/patients/:id/tests/:testId', deleteTest);
  *                     $ref: '#/components/schemas/Test'
  */
 router.get('/patients/:id/history', getPatientHistory);
+
+
+/**
+ * @swagger
+ * /api/patients/{patientId}/tests/{testId}:
+ *   get:
+ *     summary: Get a specific test for a patient
+ *     tags: [Tests]
+ *     parameters:
+ *       - in: path
+ *         name: patientId
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: path
+ *         name: testId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Details of the specific test
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Test'
+ *       404:
+ *         description: Test not found
+ */
+router.get('/patients/:patientId/tests/:testId', getTestById);
 
 export default router;
