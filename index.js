@@ -33,15 +33,40 @@ app.use(cors());
 const swaggerDefinition = {
     openapi: "3.0.0",
     info: {
-        title: "Patient Clinical Data Management API",
+        title: "WellCare Hospital Management API",
         version: "1.0.0",
-        description: "API for managing patient clinical data for healthcare providers",
+        description: "API for managing patients and medical tests",
     },
     servers: [
         {
             url: `http://localhost:${process.env.PORT || 5000}`,
         },
     ],
+    components: {
+        schemas: {
+            Patient: {
+                type: 'object',
+                required: ['name', 'age', 'gender', 'condition'],
+                properties: {
+                    id: { type: 'string' },
+                    name: { type: 'string' },
+                    age: { type: 'integer' },
+                    gender: { type: 'string' },
+                    condition: { type: 'string' },
+                },
+            },
+            Test: {
+                type: 'object',
+                required: ['name', 'result'],
+                properties: {
+                    id: { type: 'string' },
+                    name: { type: 'string' },
+                    result: { type: 'string' },
+                    date: { type: 'string', format: 'date-time' },
+                },
+            },
+        },
+    },
 };
 
 const options = {
@@ -68,6 +93,7 @@ mongoose.connect(MONGO_URL)
         console.log("Database connection successful");
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
+            console.log(`Swagger documentation available at http://localhost:${PORT}/api-docs`);
         });
     })
     .catch((error) => {
