@@ -3,7 +3,7 @@ name: Deploy to Azure App Service
 on:
  push:
   branches:
-   - master 
+   - main 
 
 jobs:
  build-and-deploy:
@@ -22,8 +22,8 @@ jobs:
 
    - name: Deploy to Azure App Service
      uses: azure/webapps-deploy@v2
-     with: Mapd713-wellcare-Ashna
-     app-name: testdeployment-Ashna
-     publish-profile: ${{ secrets.AZURE_WEBAPP_VALUE }}   
-     package: .
+     with:
+      app-name: Mapd713-wellcare-Ashna
+      publish-profile: ${{ secrets.AZURE_WEBAPP_VALUE }}   
+      package: .
 
