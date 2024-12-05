@@ -16,9 +16,10 @@ import Patient from "../model/patientModel.js";
 const addPatient = async (req, res) => {
   try {
     const patient = new Patient(req.body);
-    await patient.save();
-    res.status(201).json(patient);
+    const savedPatient = await patient.save();
+    res.status(201).json(savedPatient);
   } catch (error) {
+    console.error("Error adding patient:", error);
     res.status(400).json({ error: error.message });
   }
 };
