@@ -39,7 +39,7 @@ const swaggerDefinition = {
     },
     servers: [
         {
-            url: `http://localhost:${process.env.PORT || 5000}`,
+            url: `http://localhost:${process.env.PORT || 8080}`,
         },
     ],
     components: {
