@@ -2,7 +2,6 @@ import {
     addPatient, 
     getAllPatients, 
     getPatientById, 
-    addTestForPatient,
     getTestsForPatient,
     updatePatient,
     deletePatient,
@@ -152,3 +151,5 @@ import {
       });
     });
   });
+
+  
