@@ -78,7 +78,7 @@ router.get('/patients', getAllPatients);
  *     tags: [Patients]
  *     responses:
  *       200:
- *         description: A list of patients in critical condition
+ *         description: A list of patients in critical 
  *         content:
  *           application/json:
  *             schema:
